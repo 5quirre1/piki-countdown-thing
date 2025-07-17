@@ -2,7 +2,7 @@
 #include <string>
 #include <ctime>
 #include <cstring>
-void parse_duration(const std::string& duration_str, int& hours, int& minutes, int& seconds) {
+void swags(const std::string& duration_str, int& hours, int& minutes, int& seconds) {
     hours = minutes = seconds = 0;
     int h = 0, m = 0, s = 0;
     size_t h_pos = duration_str.find('h');
@@ -28,7 +28,7 @@ void parse_duration(const std::string& duration_str, int& hours, int& minutes, i
     minutes = m;
     seconds = s;
 }
-void print_readable_time(const std::string& label, struct tm* timeinfo) {
+void printReadble(const std::string& label, struct tm* timeinfo) {
     char buffer[100];
     strftime(buffer, sizeof(buffer), "%A, %B %d, %Y at %I:%M:%S %p", timeinfo);
     std::cout << label << ": " << buffer << std::endl;
@@ -43,13 +43,13 @@ int main() {
             break;
         }
         int hours, minutes, seconds;
-        parse_duration(input, hours, minutes, seconds);
+        swags(input, hours, minutes, seconds);
         time_t now = time(NULL);
         struct tm now_tm = *localtime(&now);
-        print_readable_time("current time", &now_tm);
+        printReadble("current time", &now_tm);
         time_t future_time = now + (hours * 3600) + (minutes * 60) + seconds;
         struct tm future_tm = *localtime(&future_time);
-        print_readable_time("time after duration", &future_tm);
+        printReadble("time after duration", &future_tm);
     }
     return 0;
 }
